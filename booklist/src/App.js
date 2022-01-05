@@ -1,5 +1,5 @@
 import './App.css';
-import BookList from  './components/BookList';
+import Book from  './components/Book';
 //import ScrollToTop from "react-scroll-to-top";
 
 const App = () => {
@@ -11,10 +11,11 @@ const App = () => {
       <header className="App-header">
   
     <h1 className="mx-auto blogTitle placeholdertext">   </h1>  
-    
-      </header>  
+  
+      </header>
+       <Book/>
       {/* <ScrollToTop smooth /> */}
-       <BookList/>
+       <h1></h1>
     </div>
   );        
 
