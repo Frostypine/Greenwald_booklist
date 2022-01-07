@@ -32,23 +32,29 @@ export const newBook = async (req, res) =>
 
 export const addBook = async (req, res) => {
     const { id } = req.params;
-    const { title, message, selectedFile } = req.body;
+   
+
+    const { title, author, synopsis } = req.body;
 
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No book with id: ${id}`);
 
-    const updatedBooks = { title, message, selectedFile, _id: id };
+   
+    const updatedBooks = { title, author, synopsis, _id: id };
+
 
     await Books.findByIdAndUpdate(id, updatedBooks, { new: true });
 
     res.json(updatedBooks);
 }
 
-export const removeBook = async (req, res) => {
-    const { id } = req.params;
 
-    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No book with id: ${id}`);
 
-    await Books.findByIdAndRemove(id);
+// export const removeBook = async (req, res) => {
+//     const { id } = req.params;
 
-    res.json({ message: "book removed successfully." });
-}
+//     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No book with id: ${id}`);
+
+//     await Books.findByIdAndRemove(id);
+
+//     res.json({ message: "book removed successfully." });
+// }

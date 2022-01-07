@@ -3,11 +3,13 @@ import mongoose from 'mongoose';
 
 const bookSchema = mongoose.Schema({
     title: String,
-    message: String,
-    selectedFile: String,
+    author: String,
+    synopsis: String,
     createdAt: {
         type: Date,
         default: new Date(),
+
+        
     },
 });
 
