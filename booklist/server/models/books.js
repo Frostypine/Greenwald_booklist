@@ -13,6 +13,6 @@ const bookSchema = mongoose.Schema({
     },
 });
 
-const PostMessage = mongoose.model('Books', bookSchema);
+const Books = mongoose.model('Books', bookSchema);
 
 export default Books;

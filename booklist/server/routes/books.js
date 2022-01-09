@@ -3,15 +3,15 @@
 import express from 'express';
 
 //import controller functions 
-import {getBooks, addBook} from '../controllers/books.js'
+import {getBooks, addBook} from '../controller/books.js'
 
 // import {getBooks, addBook, newBook, removeBook} from '../controllers/books.js'router get and router post
 
 const router = express.Router();
 
 //set up router methods 
-router.get('/', getBooks);
-router.post('/', addBook);
+router.get('/get', getBooks);
+router.post('/post', addBook);
 // router.patch('/:id',newBook);
 // router.delete('/:id',removeBook);
 

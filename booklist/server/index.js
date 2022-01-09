@@ -6,23 +6,24 @@ import cors from 'cors';
 
 import postBooks from './routes/books.js'; 
 
+
 const app = express();
 const PORT = '5000'; 
-//const CONNECTION_URL = "mongodb+srv://bambookazooie:mongodbpassword1234@cluster0.5zow7.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+const CONNECTION_URL = 'mongodb://localhost:27017/booklist'; 
   
-app.get('/get', (req, res) => {
-    res.send("get displayed");
-    console.log('successful get')
-  });
+// app.get('/get', (req, res) => {
+//     res.send("get displayed");
+//     console.log('successful get')
+//   });
 
-    app.post('/post', (req, res) => {
-    res.send("post saved");
-    console.log('successful post')
-  });
+//     app.post('/post', (req, res) => {
+//     res.send("post saved");
+//     console.log('successful post')
+//   });
 
-  app.listen(PORT, () => {
-    console.log(`server running on http://localhost:${PORT}` )
-  });
+  // app.listen(PORT, () => {
+  //   console.log(`server running on http://localhost:${PORT}` )
+  // });
 
 
   // set up middle wares 
@@ -34,6 +35,6 @@ app.get('/get', (req, res) => {
   app.use('/books', postBooks);
 
   //set up mongodb connection 
-  // mongoose.connect(CONNECTION_URL)
-  // .then(() => app.listen(PORT, () => console.log(`Server is running on port ${PORT}`)))
-  // .catch((err) => console.log(err.message));
+  mongoose.connect(CONNECTION_URL)
+  .then(() => app.listen(PORT, () => console.log(`Server is running on port ${PORT}`)))
+  .catch((err) => console.log(err.message));

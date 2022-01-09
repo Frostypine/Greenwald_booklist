@@ -17,36 +17,19 @@ export const getBooks = async (req, res) =>
 
 
 
-
-export const addBook = async (req, res) => {
-    const { id } = req.params;
-   
-
-    const { title, author, synopsis } = req.body;
-
-    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No book with id: ${id}`);
-
-   
-    const updatedBooks = { title, author, synopsis, _id: id };
-
-
-    await Books.findByIdAndUpdate(id, updatedBooks, { new: true });
-
-    res.json(updatedBooks);
+//
+export const addBook = async (req, res) =>
+{
+     const post = req.body;
+     const newBooks = new Books ({...post, createdAt: new Date().toISOString() });
+     console.log(newBooks)
+     try {
+         await newBooks.save(); 
+         res.status(201).json(newBooks);
+     } catch(e) {
+         res.status(409).json({ message: e });
+     }
 }
-
-//POST
-// export const newBook = async (req, res) =>
-// {
-//      const post = req.body;
-//      const newBooks = new Books ({...post, createdAT: new Date().toISOString() });
-//      try {
-//          await newBooks.save(); 
-//          res.status(201).json(newBooks);
-//      } catch(e) {
-//          res.status(409).json({ message: e });
-//      }
-// }
 
 
 // export const removeBook = async (req, res) => {
