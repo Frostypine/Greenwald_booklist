@@ -4,7 +4,7 @@ import Books from '../models/books.js';
 
 // set up the getBooks and addBook exports
 
-//GET
+//GET allBooks instead of books? 
 export const getBooks = async (req, res) => 
 {
     try{
@@ -20,8 +20,8 @@ export const getBooks = async (req, res) =>
 //
 export const addBook = async (req, res) =>
 {
-     const post = req.body;
-     const newBooks = new Books ({...post, createdAt: new Date().toISOString() });
+     const book = req.body;
+     const newBooks = new Books ({...book, createdAt: new Date().toISOString() });
      console.log(newBooks)
      try {
          await newBooks.save(); 
