@@ -3,11 +3,14 @@ import { Form, Card, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { addBooks, selectBooks } from '../state/bookSlice';
 
-const Book = () => {
+import {createBookList} from '../actions/books'; 
+let bookList = {}
 
-  // title: "To Kill a Mockingbird" ,
-  // author: "Harper Lee",
-  // synop : "Boo, Scout and Gregory play in a treehouse. "
+
+const Book = () => {
+  
+   const [bookData, setBookData] = useState(); 
+
   const bookArray = [];
   const dispatch = useDispatch();
   const booksList = useSelector(selectBooks);
@@ -18,6 +21,7 @@ const Book = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    dispatch(createBookList(bookData)) 
     const bookInfo = {
       title: e.target.title.value,
       author: e.target.author.value,
@@ -32,7 +36,12 @@ const Book = () => {
 
   }
 
-
+const handleChange = (e) => {
+     setBookData({
+       ...bookData,
+       [e.target.name]: e.target.value,
+     });
+};
 
   return (
 
@@ -42,7 +51,9 @@ const Book = () => {
 
           <Form.Label>Title </Form.Label><br />
           <Form.Control className="mx-auto aBox"
-            size="lg" type="text" name="title" />
+            size="lg" type="text" name="title" 
+            onChange={handleChange}
+            />
           <br />
           <Form.Label>Author</Form.Label><br />
           <Form.Control className="mx-auto aBox"
