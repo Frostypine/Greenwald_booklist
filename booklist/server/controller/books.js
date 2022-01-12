@@ -31,13 +31,30 @@ export const addBook = async (req, res) =>
      }
 }
 
+export const updateBook =  async (req, res) => {
+const {id} = req.params;
+const {author, title, synopsis} = req.body
 
-// export const removeBook = async (req, res) => {
-//     const { id } = req.params;
+if(!mongoose.Types.ObjectId.isVal(id)){
+    return res.status(404).send(`no post with id ${id}`);
+}
+const updatedBook = {author, title, synopsis, _id: id}
+await BookModel.findByIdAndUpdate(id, updatedBook, {new: true}); 
+res.json(updatedBook)
+}
 
-//     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No book with id: ${id}`);
 
-//     await Books.findByIdAndRemove(id);
 
-//     res.json({ message: "book removed successfully." });
-// }
+
+export const removeBook = async (req, res) => {
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) 
+    {
+        return res.status(404).send(`No book with id: ${id}`);
+    }
+
+    await Books.findByIdAndDelete(id); // delete vs remove? 
+
+    res.json({ message: "book removed successfully." });
+}

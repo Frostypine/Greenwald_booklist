@@ -6,7 +6,8 @@ import data from '../data';
 export const bookSlice = createSlice ({
     name: 'books',
     initialState: {
-      books:  data
+      book: []
+     // books:  data
     },
     reducers: {
        addBooks: (state, action) => {
@@ -15,6 +16,12 @@ export const bookSlice = createSlice ({
     },
     getBook: (state, action) => {
       state.book = action.payload
+    },
+    redux_updateBook: (state, action) => {
+      state.book = state.book.map((book) => (book.id === action.payload ? action.payload: book));  
+    }, 
+    redux_deleteBook: (state, action) => {
+      state.book = state.book.filter((book) => book._id !== action.payload)
     }
   }
 
