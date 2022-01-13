@@ -1,39 +1,43 @@
 import './App.css';
-import Book from  './components/Book';
-//import ScrollToTop from "react-scroll-to-top";
-import * as api from './api/index'; 
-const App = () => {
+import BookForm from './components/BookForm';
+import Book from './components/Book';
+import  React, {useState, useEffect} from 'react';
+import { useDispatch } from 'react-redux';
+import { retrieveBookList } from './actions/books';
 
-  
+// import * as api from './API/index';
+
+function App() {
+  const [ currentId, setCurrentId ] = useState(0)
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(retrieveBookList());
+  })
+
+
   return (
     <div className="App">
-     
+      
+      {/* <button onClick={ 
+        () => api.testGet() 
+        .then (res => {
+          console.log(res.data)
+        })
+        }>Test Get</button>
 
+      <button onClick={ 
+        () => api.testPost() 
+        .then (res => {
+          console.log(res.data)
+        })
+        }>Test Post</button> */}
+      
       <header className="App-header">
-  
-    {/* <h1 className="mx-auto blogTitle placeholdertext">   </h1>   */}
-  
+      <BookForm setCurrentId={setCurrentId} currentId={currentId} />
       </header>
-
-  <button onClick={() => api.testGet()
-  .then (resp => {
-    console.log(resp.data); 
-  })
-  } > Test Get </button>
-  <button onClick={() => api.testPost()
-    .then (resp => {
-      console.log(resp.data); 
-    })
-  } > Test Post </button>
-
-       <Book/>
-      {/* <ScrollToTop smooth /> */}
-       <h1></h1>
+      <Book setCurrentId={setCurrentId} />
     </div>
-  );        
-
-
+  );
 }
 
 export default App;
- 
