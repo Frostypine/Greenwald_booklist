@@ -2,9 +2,7 @@
 import mongoose from 'mongoose';
 import Books from '../models/books.js'; 
 
-// set up the getBooks and addBook exports
-
-//GET allBooks instead of books? 
+//GET 
 export const getBooks = async (req, res) => 
 {
     try{
@@ -21,8 +19,10 @@ export const getBooks = async (req, res) =>
 export const addBook = async (req, res) =>
 {
      const book = req.body;
+
      const newBooks = new Books ({...book, createdAt: new Date().toISOString() });
      console.log(newBooks)
+    
      try {
          await newBooks.save(); 
          res.status(201).json(newBooks);
@@ -33,20 +33,20 @@ export const addBook = async (req, res) =>
 
 export const updateBook =  async (req, res) => {
 const {id} = req.params;
-const {author, title, synopsis} = req.body
+const {author, title, synopsis} = req.body;
 
 if(!mongoose.Types.ObjectId.isVal(id)){
     return res.status(404).send(`no post with id ${id}`);
 }
 const updatedBook = {author, title, synopsis, _id: id}
-await BookModel.findByIdAndUpdate(id, updatedBook, {new: true}); 
-res.json(updatedBook)
+await Books.findByIdAndUpdate(id, updatedBook, {new: true}); 
+res.json(updatedBook);
 }
 
 
 
 
-export const removeBook = async (req, res) => {
+export const deleteBook = async (req, res) => {
     const { id } = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(id)) 
@@ -55,6 +55,5 @@ export const removeBook = async (req, res) => {
     }
 
     await Books.findByIdAndDelete(id); // delete vs remove? 
-
     res.json({ message: "book removed successfully." });
 }

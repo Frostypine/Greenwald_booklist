@@ -1,13 +1,13 @@
 // src/actions/books.js
 
 import * as api from '../api/index';
-import { addBooks, getBook, redux_updateBook, redux_removeBook } from '../state/bookSlice';
+import { addBook, getBooks, redux_updateBook, axios_deleteBook } from '../state/bookSlice';
 //import data from '../data';
 
 export const retrieveBookList = () => async (dispatch) => {
     try {
         const {data} = await api.getBooks(); 
-        dispatch(getBook(data))
+        dispatch(getBooks(data))
     } catch(error){
         console.log(error); 
     };
@@ -16,7 +16,7 @@ export const retrieveBookList = () => async (dispatch) => {
 export const createBookList = (book) => async (dispatch) => {
  try {
      const {data} = await api.addBook(book);
-     dispatch(addBooks(data))
+     dispatch(addBook(data))
  } catch (error){
      console.log(error)
  };   
@@ -32,10 +32,10 @@ export const editBook = (id, book) => async (dispatch) => {
     }
 }
 
-export const removeBook = (id) => async (dispatch) => {
+export const deleteBook = (id) => async (dispatch) => {
     try{
-       await api.axios_deleteBook(id);
-        dispatch(redux_updateBook(data))
+        const {data} = await api.axios_deleteBook(id);
+        dispatch(axios_deleteBook(data))
     } catch (error) {
         console.log(error)
     }

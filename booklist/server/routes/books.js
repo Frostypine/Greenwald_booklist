@@ -3,32 +3,21 @@
 import express from 'express';
 
 //import controller functions 
-import {getBooks, addBook, updateBook, removeBook} from '../controller/books.js'
+import {getBooks, addBook, updateBook, deleteBook} from '../controller/books.js'
 
-// import {getBooks, addBook, newBook, removeBook} from '../controllers/books.js'router get and router post
 
 const router = express.Router();
 
 //set up router methods 
-router.get('/get', getBooks);
-router.post('/post', addBook);
-router.patch('/:id',updateBook);
-router.delete('/:id',removeBook);
+router.get('/', getBooks);
+router.post('/', addBook);
+router.patch('/:id', updateBook);
+router.delete('/:id', deleteBook);
 
 export default router;
 
 
 
-
-// router.get('/', getBooks, (req, res) => {
-//     res.send("getBooks displayed");
-//     console.log('successful getBooks')
-//   });
-
-// router.post('/', addBook, (req, res) => {
-//     res.send("addBook displayed");
-//     console.log('book successfully added')
-//   });
 
 
 

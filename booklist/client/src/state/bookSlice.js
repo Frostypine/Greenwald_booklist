@@ -1,27 +1,25 @@
 import {createSlice} from '@reduxjs/toolkit';
-import data from '../data';
-
-
+//import data from '../data';
 
 export const bookSlice = createSlice ({
-    name: 'books',
+    name: 'bookList',
     initialState: {
-      book: []
+      bookList: []
      // books:  data
     },
     reducers: {
-       addBooks: (state, action) => {
-        console.log(action.payload); 
-        state.books.push(action.payload);    
+    getBooks: (state, action) => {
+      state.bookList = action.payload;
     },
-    getBook: (state, action) => {
-      state.book = action.payload
+    addBook: (state, action) => {
+        console.log(action.payload); 
+        state.bookList.push(action.payload);    
     },
     redux_updateBook: (state, action) => {
-      state.book = state.book.map((book) => (book.id === action.payload ? action.payload: book));  
+      state.bookList = state.bookList.map((book) => (book.id === action.payload ? action.payload: book));  
     }, 
-    redux_deleteBook: (state, action) => {
-      state.book = state.book.filter((book) => book._id !== action.payload)
+    axios_deleteBook: (state, action) => {
+      state.bookList = state.bookList.filter((book) => book._id !== action.payload)
     }
   }
 
@@ -29,6 +27,6 @@ export const bookSlice = createSlice ({
 
 })
 
-export const {addBooks, getBook} = bookSlice.actions; // actions for adding/changing state
-export const selectBooks = (state) => state.books.books;// accessing state
+export const {addBook, getBooks, redux_updateBook, axios_deleteBook } = bookSlice.actions; // actions for adding/changing state
+export const selectBook = (state) => state.booksList.bookList;// accessing state
 export default bookSlice.reducer; // store access 
